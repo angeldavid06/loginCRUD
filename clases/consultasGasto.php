@@ -1,25 +1,40 @@
 <?php
+    session_start();
     require_once "Conexion.php";
 
     class consultasGasto extends Conexion {
         public function mostrarGastos () {
             $conexion = Conexion::Conectar();
+            $u = $_SESSION['usuario'];
+            $sql1 = "SELECT id FROM t_usuarios WHERE usuario = '$u'";
+            $result1 = mysqli_query($conexion,$sql1);
+            $idUsuario = mysqli_fetch_row($result1);
 
-            $sql = "SELECT * FROM t_gastos";
+            $sql = "SELECT * FROM t_gastos WHERE id_usuario = '$idUsuario[0]'";
             $result = mysqli_query($conexion,$sql);
             return $result;
         }
         
         public function nuevoGasto ($datos) {
             $conexion = Conexion::Conectar();
-            $sql = "INSERT INTO t_gastos (concepto,cantidad,fecha) VALUES ('$datos[0]','$datos[1]','$datos[2]')";
+            $u = $_SESSION['usuario'];
+            $sql1 = "SELECT id FROM t_usuarios WHERE usuario = '$u'";
+            $result1 = mysqli_query($conexion,$sql1);
+            $idUsuario = mysqli_fetch_row($result1);
+
+            $sql = "INSERT INTO t_gastos (concepto,cantidad,fecha,id_usuario) VALUES ('$datos[0]','$datos[1]','$datos[2]','$idUsuario[0]')";
             $result = mysqli_query($conexion,$sql);
             return $result;
         }
 
         public function eliminarGasto ($id) {
             $conexion = Conexion::Conectar();
-            $sql = "DELETE FROM t_gastos WHERE id = '$id'";
+            $u = $_SESSION['usuario'];
+            $sql1 = "SELECT id FROM t_usuarios WHERE usuario = '$u'";
+            $result1 = mysqli_query($conexion,$sql1);
+            $idUsuario = mysqli_fetch_row($result1);
+
+            $sql = "DELETE FROM t_gastos WHERE id = '$id' AND id_usuario = '$idUsuario[0]'";
 
             $result = mysqli_query($conexion,$sql);
             return $result;
@@ -27,8 +42,12 @@
 
         public function obtenerGasto ($id) {
             $conexion = Conexion::Conectar();
-
-            $sql = "SELECT * FROM t_gastos WHERE id = '$id'";
+            $u = $_SESSION['usuario'];
+            $sql1 = "SELECT id FROM t_usuarios WHERE usuario = '$u'";
+            $result1 = mysqli_query($conexion,$sql1);
+            $idUsuario = mysqli_fetch_row($result1);
+            
+            $sql = "SELECT * FROM t_gastos WHERE id = '$id' AND id_usuario = '$idUsuario[0]'";
             $result = mysqli_query($conexion,$sql);
             $ver = mysqli_fetch_row($result);
             $datos = array (

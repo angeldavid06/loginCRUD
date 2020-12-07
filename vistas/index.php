@@ -6,6 +6,7 @@
 
     require_once "modulos/header.php";
     require_once "modulos/modal.php";
+    require_once "alert/alerts.php";
 ?>
     <main>
         <div class="titulo">
@@ -17,8 +18,5 @@
         <div id="cargaDatos" class="tabla">
         </div>
     </main>
-    <script>
-
-    </script>
 </body>
 </html>

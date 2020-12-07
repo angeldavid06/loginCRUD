@@ -8,8 +8,21 @@ $(document).ready(function() {
     $('.cerrar').click(function() {
         $('.form-nuevo').removeClass("abierto");
     });
+
+    $('.close-alert-delete').click(function() {
+        $('.alert-delete').removeClass("notificacion");
+    });
+
+    $('.close-alert-update').click(function() {
+        $('.alert-update').removeClass("notificacion");
+    });
+
+    $('.close-alert-insert').click(function() {
+        $('.alert-insert').removeClass("notificacion");
+    });
     
-    $('.btnInsertar').click(function () {
+    $("#formAgregar").on('submit', function(evt){
+        evt.preventDefault(); 
         datos = $('#formAgregar').serialize();
         $.ajax({
             type:"POST",
@@ -18,14 +31,24 @@ $(document).ready(function() {
             success:function(r) {
                 if (r == 1) {
                     $('#cargaDatos').load('tabla.php');
+                    $('.alert-insert').addClass("notificacion");
+                    setTimeout(function(){ 
+                        $('.alert-insert').removeClass("notificacion"); 
+                    }, 3000);
                 } else {
-                    alert("Fallo al agregar");
+                    $('.alert-insert').addClass("notificacion");
+                    $('.alert-insert').addClass("error"); 
+                    setTimeout(function(){ 
+                        $('.alert-insert').removeClass("notificacion");
+                        $('.alert-insert').removeClass("error"); 
+                    }, 3000);
                 }
             }
         });
     });
 
-    $('.btnActualizar').click(function() {
+    $("#formActualizar").on('submit', function(evt){
+        evt.preventDefault();  
         datos = $('#formActualizar').serialize();
         $.ajax({
             type:"POST",
@@ -34,9 +57,17 @@ $(document).ready(function() {
             success:function(r) {
                 if (r == 1) {
                     $('#cargaDatos').load('tabla.php');
-                    alertify.success("Actualizado con exito");
+                    $('.alert-update').addClass("notificacion"); 
+                    setTimeout(function(){ 
+                        $('.alert-update').removeClass("notificacion"); 
+                    }, 3000);
                 } else {
-                    alertify.error("Fallo al actualizar");
+                    $('.alert-update').addClass("notificacion");
+                    $('.alert-update').addClass("error"); 
+                    setTimeout(function(){ 
+                        $('.alert-update').removeClass("notificacion");
+                        $('.alert-update').removeClass("error"); 
+                    }, 3000);
                 }
             }
         });
@@ -52,9 +83,17 @@ function eliminarDatos(idGasto) {
             success:function(r) {
                 if (r==1) {
                     $('#cargaDatos').load('tabla.php');
-                    alertify.success("Eliminado con exito");
+                    $('.alert-delete').addClass("notificacion"); 
+                    setTimeout(function(){ 
+                        $('.alert-delete').removeClass("notificacion"); 
+                    }, 3000);
                 } else {
-                    alertify.error("No se pudo eliminar el gasto");
+                    $('.alert-delete').addClass("notificacion");
+                    $('.alert-delete').addClass("error"); 
+                    setTimeout(function(){ 
+                        $('.alert-delete').removeClass("notificacion");
+                        $('.alert-delete').removeClass("error"); 
+                    }, 3000);
                 }
             }
         });
