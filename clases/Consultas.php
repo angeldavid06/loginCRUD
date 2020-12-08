@@ -12,10 +12,8 @@
             
             if ($cantidad['total'] > 0) {
                 $_SESSION['usuario'] = $datos[0];
-                header("location: ../vistas");
-            } else {
-                echo "Error al iniciar sesión";
-            }
+            } 
+            return $cantidad['total'];
         }
 
         public function insertarUsuarios ($datos) {
@@ -31,7 +29,11 @@
                         '$password'
                     )";
             $result = mysqli_query($conexion,$sql);
-            return $result;
+            if ($result) {
+                return 1;
+            } else {
+                return 0;
+            }
         }
     }
 ?>

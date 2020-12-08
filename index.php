@@ -17,21 +17,21 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-sm-5 img">
+            <div class="col-sm-4 img">
                 <?php require_once "public/svg/svg-login.php"; ?>
             </div>
             <div class="col-sm-4">
                 <h1>Iniciar Sesión</h1>
-                <form action="procesos/login.php" method="POST">
+                <form id="formLogin">
                     <label for="usuario">Nombre de usuario</label>
                     <div class="input">
-                        <i class="material-icons">account_circle</i>
-                        <input type="text" name="usuario" id="usuario" class="form-control">
+                        <i class="label-input material-icons">account_circle</i>
+                        <input type="text" name="usuario" id="usuario" class="form-control input-control">
                     </div>
                     <label for="password">Contraseña</label>
                     <div class="input">
-                        <i class="material-icons">vpn_key</i>
-                        <input type="password" name="password" id="password" class="form-control">
+                        <i class="label-input material-icons">vpn_key</i>
+                        <input type="password" name="password" id="password" class="form-control input-control">
                     </div>
                     <br>
                     <div class="botones">

@@ -11,9 +11,19 @@
         $_POST['password']
     );
 
-    if ($obj->insertarUsuarios($datos)) {
-        header("location: ../index.php");
+    if ($datos[0] == '') {
+        echo 2;
+    } else if ($datos[1] == '') {
+        echo 3;
+    } else if ($datos[2] == '') {
+        echo 4;
+    } else if ($datos[3] == '') {
+        echo 5;
+    } else if ($datos[4] == '') {
+        echo 6;
+    } else if ($datos[5] == '') {
+        echo 7;
     } else {
-        header("location: ../registro.php");
+        echo $obj->insertarUsuarios($datos);    
     }
 ?>
